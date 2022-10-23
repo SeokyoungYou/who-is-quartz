@@ -7,3 +7,4 @@
 - React
 - Typescript
 - Recoil: score state management
+- React router dom v6

@@ -8,3 +8,8 @@
 - Typescript
 - Recoil: score state management
 - React router dom v6
+
+## Tools
+
+- Git
+  - Format of the commit message: https://gist.github.com/stephenparish/9941e89d80e2bc58a153

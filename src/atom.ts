@@ -1,5 +1,9 @@
 import { atom } from "recoil";
-const scoreState = atom({
+export interface Score {
+  [key: string]: boolean;
+}
+
+export const scoreState = atom<Score[]>({
   key: "scoreState", // unique ID (with respect to other atoms/selectors)
-  default: {}, // default value
+  default: [], // default value
 });

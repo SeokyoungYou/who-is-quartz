@@ -15,7 +15,7 @@ interface QuizImg {
 export interface Quiz {
   quizId: string;
   quizName: string;
-  images: QuizImg | QuizImg[];
+  images: QuizImg[];
 }
 
 export const quizDataState = atom<Quiz[]>({

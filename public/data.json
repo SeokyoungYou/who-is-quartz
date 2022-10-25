@@ -1,7 +1,7 @@
 [
   {
     "quizId": "1",
-    "quizName": "돌잔치",
+    "quizName": "생일 잔치",
     "images": [
       {
         "url": "pics/birth_2k.jpeg",
@@ -15,7 +15,7 @@
   },
   {
     "quizId": "2",
-    "quizName": "뿌까머리",
+    "quizName": "뿌까 머리",
     "images": [
       {
         "url": "pics/puka_left.jpeg",
@@ -39,7 +39,7 @@
   },
   {
     "quizId": "4",
-    "quizName": "붉은악마",
+    "quizName": "붉은 악마",
     "images": [
       {
         "url": "pics/reds_left.jpeg",

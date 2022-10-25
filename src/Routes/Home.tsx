@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { currRouteState, Quiz, quizDataState, routesState } from "../atom";
+import {
+  currRouteState,
+  Quiz,
+  quizDataState,
+  routesState,
+  Score,
+  scoreState,
+} from "../atom";
 import HomeIcons from "../Components/HomeIcons";
 
 // Style Component
@@ -40,7 +47,6 @@ function Home() {
   });
   const startClicked = () => {
     navigate(`${routes[currRoute]}`);
-    setCurrRoute((prev) => prev + 1);
   };
 
   return (

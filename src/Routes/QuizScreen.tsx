@@ -222,14 +222,12 @@ function QuizScreen() {
           <BtnWrapper>
             {localScore[quizId] && (
               <Notice fontColor="#6BCB77">
-                정답입니다
-                <FontAwesomeIcon icon={solid("face-smile")} />
+                정답입니다 <FontAwesomeIcon icon={solid("face-smile")} />{" "}
               </Notice>
             )}
             {!localScore[quizId] && (
               <Notice fontColor="#FF6B6B">
-                오답입니다
-                <FontAwesomeIcon icon={solid("face-dizzy")} />
+                오답입니다 <FontAwesomeIcon icon={solid("face-dizzy")} />{" "}
               </Notice>
             )}
             <RouteBtn onClick={nextBtnClicked} bgColor="#4D96FF">

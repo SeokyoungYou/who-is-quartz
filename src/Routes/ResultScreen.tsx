@@ -128,7 +128,7 @@ function ResultScreen() {
   // Navigate to home
   const homeClicked = () => {
     resetScores();
-    navigate("/");
+    navigate(`/`);
   };
   return (
     <Wrapper>

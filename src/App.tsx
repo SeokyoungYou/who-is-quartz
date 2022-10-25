@@ -45,7 +45,7 @@ function App() {
 
   return (
     <Wrapper>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/quiz/:id" element={<QuizScreen />} />
           <Route path="/result" element={<ResultScreen />} />

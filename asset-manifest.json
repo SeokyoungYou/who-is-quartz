@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/who-is-quartz/static/js/main.69a9cb5e.js",
+    "main.js": "/who-is-quartz/static/js/main.f82b5fd5.js",
     "index.html": "/who-is-quartz/index.html",
-    "main.69a9cb5e.js.map": "/who-is-quartz/static/js/main.69a9cb5e.js.map"
+    "main.f82b5fd5.js.map": "/who-is-quartz/static/js/main.f82b5fd5.js.map"
   },
   "entrypoints": [
-    "static/js/main.69a9cb5e.js"
+    "static/js/main.f82b5fd5.js"
   ]
 }

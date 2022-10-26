@@ -45,6 +45,7 @@ function App() {
 
   return (
     <Wrapper>
+      {/* Local url: http://localhost:3000/who-is-quartz */}
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/quiz/:id" element={<QuizScreen />} />

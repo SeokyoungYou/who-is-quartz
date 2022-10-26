@@ -18,6 +18,9 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 500;
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 const Form = styled.form`
   display: flex;
@@ -42,6 +45,9 @@ const UserResult = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+  }
 `;
 const DBResults = styled.div``;
 const Retry = styled.div`
@@ -68,6 +74,11 @@ const ScrollWrapper = styled.div`
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  @media screen and (max-width: 500px) {
+    height: 300px;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 14px;
+  }
 `;
 const UserWrapper = styled.div`
   display: flex;

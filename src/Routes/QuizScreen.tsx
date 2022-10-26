@@ -28,6 +28,9 @@ const TitleWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
+  @media screen and (max-width: 500px) {
+    margin-bottom: 5px;
+  }
 `;
 const Title = styled.h1`
   font-size: 32px;
@@ -37,6 +40,9 @@ const QuizWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 500px) {
+    margin-bottom: 20px;
+  }
 `;
 const RouteBtn = styled.button<BtnProps>`
   background-color: ${(props) => props.bgColor};
@@ -57,25 +63,47 @@ const TouchableWrapper = styled.div`
   justify-content: center;
   cursor: pointer;
   margin-bottom: 30px;
+  @media screen and (max-width: 500px) {
+    /* flex-direction: column; */
+    margin-bottom: 0px;
+    align-items: center;
+  }
 `;
 const Touchable = styled.div`
   width: 500px;
   height: 500px;
+  @media screen and (max-width: 500px) {
+    height: 160px;
+    width: 160px;
+  }
 `;
 const MultiImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 100px;
+  @media screen and (max-width: 500px) {
+    /* flex-direction: column; */
+    gap: 10px;
+    align-items: center;
+  }
 `;
 const MultiImg = styled.img`
   height: 400px;
   width: 400px;
   object-fit: cover;
+  @media screen and (max-width: 500px) {
+    height: 150px;
+    width: 150px;
+  }
 `;
 const SingleImg = styled.img`
-  height: 400px;
   object-fit: cover;
+  height: 400px;
   width: 400px;
+  @media screen and (max-width: 500px) {
+    height: 150px;
+    width: 150px;
+  }
   /* object-position: top; */
 `;
 const BtnWrapper = styled.div`

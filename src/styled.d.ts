@@ -7,5 +7,8 @@ declare module "styled-components" {
     rightColor: string;
     btnColor: string;
     textColor: string;
+    grey: string;
+    selectedColor: string;
+    transparent: string;
   }
 }

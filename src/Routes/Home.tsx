@@ -11,6 +11,7 @@ import {
   scoreState,
 } from "../atom";
 import HomeIcons from "../Components/HomeIcons";
+import { lightTheme } from "../theme";
 
 // Style Component
 const Wrapper = styled.div`
@@ -29,8 +30,13 @@ const Title = styled.h1`
   }
 `;
 
-const StartBtn = styled.button`
-  background-color: ${(props) => props.theme.btnColor};
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const StartBtn = styled.button<ButtonProps>`
+  background-color: ${(props) => props.bgColor};
   border: none;
   padding: 15px;
   font-size: 24px;
@@ -39,6 +45,9 @@ const StartBtn = styled.button`
   border-radius: 20px;
   cursor: pointer;
 `;
+interface ButtonProps {
+  bgColor: string;
+}
 
 function Home() {
   const navigate = useNavigate();
@@ -51,6 +60,9 @@ function Home() {
   });
   const startClicked = () => {
     navigate(`${routes[currRoute]}`);
+  };
+  const resultClicked = () => {
+    navigate(`/result`, { state: { isFromHome: true } });
   };
 
   return (
@@ -65,7 +77,14 @@ function Home() {
         {routes.length === 0 ? (
           <span>Loading</span>
         ) : (
-          <StartBtn onClick={startClicked}>Start</StartBtn>
+          <ButtonWrapper>
+            <StartBtn bgColor={lightTheme.btnColor} onClick={startClicked}>
+              Start
+            </StartBtn>
+            <StartBtn bgColor={lightTheme.grey} onClick={resultClicked}>
+              점수 확인
+            </StartBtn>
+          </ButtonWrapper>
         )}
       </div>
     </Wrapper>

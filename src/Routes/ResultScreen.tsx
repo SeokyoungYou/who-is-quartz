@@ -1,7 +1,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Score, scoreState } from "../atom";
@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 500;
+  margin-bottom: 20px;
   @media screen and (max-width: 500px) {
     font-size: 16px;
   }
@@ -39,7 +40,6 @@ const SubmitBtn = styled.input`
   padding: 10px;
 `;
 const UserResult = styled.div`
-  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -84,30 +84,45 @@ const UserWrapper = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: center;
+`;
+const UserName = styled.h1`
+  @media screen and (max-width: 500px) {
+    width: 100px;
+  }
 `;
 
 function ResultScreen() {
   const navigate = useNavigate();
+
   const resetScores = useResetRecoilState(scoreState);
+
+  const [user, setUser] = useState<string>("");
+  const [users, setUsers] = useState<DocumentData[]>([]);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+  // From home url -> hide Title and UserResult components
+  const {
+    state: { isFromHome },
+  } = useLocation();
+  const [isHome, setIsHome] = useState<boolean>(false);
+
+  console.log(isFromHome);
+  // Calculate score form scoreState array
   const scores = useRecoilValue<Score[]>(scoreState);
-  // const scores = [{ 1: false }, { 2: true }, { 3: false }, { 4: false }];
   const countCorrect = scores.reduce((acc, score) => {
     const [answer] = Object.values(score);
     if (answer === true) return acc + 1;
     else return acc;
   }, 0);
 
-  // console.log(scores);
-
-  const [user, setUser] = useState<string>("");
-  const [users, setUsers] = useState<DocumentData[]>([]);
-  const [dbLoad, setDBload] = useState<boolean>(false);
+  // Get users form firebase DB
   useEffect(() => {
-    setDBload(false);
+    getDBUsers();
+    if (isFromHome) {
+      setIsHome(true);
+    }
   }, []);
-  useEffect(() => {
-    setDBload(true);
-  }, [users]);
   const getDBUsers = async () => {
     const querySnapshot = await getDocs(collection(dbService, "users"));
     const dbUsers: DocumentData[] = await querySnapshot.docs.map((doc) =>
@@ -128,6 +143,7 @@ function ResultScreen() {
       console.error("Error adding document: ", e);
     }
     setUser("");
+    setIsSubmit(true);
     getDBUsers();
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,49 +152,61 @@ function ResultScreen() {
     } = event;
     setUser(value);
   };
-  // Navigate to home
+  // Navigate to home and reset scoreState
   const homeClicked = () => {
     resetScores();
     navigate(`/`);
+    setIsSubmit(false);
   };
   return (
     <Wrapper>
-      <Title>🎉 당신은 4 문제 중 {countCorrect} 문제를 맞췄습니다! 🎉</Title>
-      <UserResult>
-        <span>
-          내 결과를 제출하고 다른 사람들의 결과를 함께 확인해보세요!{" "}
-          <FontAwesomeIcon icon={solid("arrow-down")} />{" "}
-        </span>
-        <Form onSubmit={onSubmit}>
-          <Input
-            value={user}
-            onChange={onChange}
-            type="text"
-            placeholder="이름(중복 가능)을 작성해주세요."
-          />
-          <SubmitBtn type="submit" value="결과 제출하기" />
-        </Form>
-      </UserResult>
-      {dbLoad && (
-        <DBResults>
-          <ScrollWrapper>
-            {users.map((user, i) => {
-              return (
-                <UserWrapper key={i}>
-                  <h1>{user.user}</h1>
-                  <h1>{user.score} 점</h1>
-                </UserWrapper>
-              );
-            })}
-          </ScrollWrapper>
-        </DBResults>
+      {isHome && <Title>점수 확인</Title>}
+      {!isHome && (
+        <>
+          <Title>
+            🎉 당신은 4 문제 중 {countCorrect} 문제를 맞췄습니다! 🎉
+          </Title>
+          {!isSubmit && (
+            <UserResult>
+              <span>
+                내 결과를 제출하고 다른 사람들의 결과를 함께 확인해보세요!{" "}
+                <FontAwesomeIcon icon={solid("arrow-down")} />{" "}
+              </span>
+              <Form onSubmit={onSubmit}>
+                <Input
+                  required
+                  maxLength={8}
+                  value={user}
+                  onChange={onChange}
+                  type="text"
+                  placeholder="닉네임을 작성해주세요."
+                />
+                <SubmitBtn type="submit" value="결과 제출하기" />
+              </Form>
+            </UserResult>
+          )}
+        </>
       )}
+
+      <DBResults>
+        <ScrollWrapper>
+          {users.map((user, i) => {
+            return (
+              <UserWrapper key={i}>
+                <UserName>{user.user}</UserName>
+                <h1>{user.score} 점</h1>
+              </UserWrapper>
+            );
+          })}
+        </ScrollWrapper>
+      </DBResults>
+
       <Retry onClick={homeClicked}>
         <FontAwesomeIcon
-          icon={solid("arrow-rotate-right")}
+          icon={solid("home")}
           style={{ fontSize: "32px", cursor: "pointer" }}
         />
-        <h1>재도전하기</h1>
+        <h1>시작페이지로 가기</h1>
       </Retry>
     </Wrapper>
   );

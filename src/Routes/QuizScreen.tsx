@@ -12,6 +12,7 @@ import {
   Score,
   scoreState,
 } from "../atom";
+import { lightTheme } from "../theme";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -140,12 +141,12 @@ function QuizScreen() {
   const [currQiuz, setCurrQuiz] = useState<Quiz>(quiz[currRoute]);
   // scores
   const [scores, setScores] = useRecoilState<Score[]>(scoreState);
-  const [correct, setCorrect] = useState<boolean>(false);
+  const [correct, setCorrect] = useState<boolean | null>(null);
   const [localScore, setLocalScore] = useState<Score | null>(null);
   // Handle Img Background: color and pointer-event
   const [bgColors, setBgColors] = useState<BgColors>({
-    left: "rgba(0,0,0,0)",
-    right: "rgba(0,0,0,0)",
+    left: lightTheme.transparent,
+    right: lightTheme.transparent,
   });
   const [pointerEvent, setPointerEvent] = useState({});
 
@@ -161,6 +162,7 @@ function QuizScreen() {
   useEffect(() => {
     if (localScore) {
       setPointerEvent({ "pointer-events": "none" });
+      setCorrect(null);
       // fetch score
       setScores((prev) => [...prev, localScore]);
     }
@@ -168,11 +170,15 @@ function QuizScreen() {
   // 4-2. After Next Btn Clicked: Initialize to next quiz
   useEffect(() => {
     setCurrQuiz(quiz[currRoute]);
-    navigate(`${routes[currRoute]}`);
+    if (routes[currRoute] === "/result") {
+      navigate(`/result`, { state: { isFromHome: false } });
+    } else {
+      navigate(`${routes[currRoute]}`);
+    }
     setLocalScore(null);
     setBgColors({
-      left: "rgba(0,0,0,0)",
-      right: "rgba(0,0,0,0)",
+      left: lightTheme.transparent,
+      right: lightTheme.transparent,
     });
     setPointerEvent({});
   }, [currRoute]);
@@ -181,13 +187,13 @@ function QuizScreen() {
   const imgClicked = (clickedPos: string) => {
     if (clickedPos === "left") {
       setBgColors({
-        left: "rgba(255,212,59,0.3)",
-        right: "rgba(0,0,0,0.3)",
+        left: lightTheme.selectedColor,
+        right: lightTheme.grey,
       });
     } else {
       setBgColors({
-        left: "rgba(0,0,0,0.3)",
-        right: "rgba(255,212,59,0.3)",
+        left: lightTheme.grey,
+        right: lightTheme.selectedColor,
       });
     }
     if (clickedPos === correctAnswer) {
@@ -198,7 +204,11 @@ function QuizScreen() {
   };
   // 3-1. Set local score
   const submitBtnClicked = () => {
-    setLocalScore({ [quizId]: correct });
+    if (correct === null) {
+      alert("정답을 선택해주세요");
+    } else {
+      setLocalScore({ [quizId]: correct });
+    }
   };
   // 4-1. navigate to next quiz or result
   const nextBtnClicked = () => {
@@ -242,23 +252,23 @@ function QuizScreen() {
       </QuizWrapper>
       <div>
         {!localScore && (
-          <RouteBtn onClick={submitBtnClicked} bgColor="#FFD93D">
+          <RouteBtn onClick={submitBtnClicked} bgColor={lightTheme.bgColor}>
             정답 제출
           </RouteBtn>
         )}
         {localScore && (
           <BtnWrapper>
             {localScore[quizId] && (
-              <Notice fontColor="#6BCB77">
+              <Notice fontColor={lightTheme.rightColor}>
                 정답입니다 <FontAwesomeIcon icon={solid("face-smile")} />{" "}
               </Notice>
             )}
             {!localScore[quizId] && (
-              <Notice fontColor="#FF6B6B">
+              <Notice fontColor={lightTheme.wrongColor}>
                 오답입니다 <FontAwesomeIcon icon={solid("face-dizzy")} />{" "}
               </Notice>
             )}
-            <RouteBtn onClick={nextBtnClicked} bgColor="#4D96FF">
+            <RouteBtn onClick={nextBtnClicked} bgColor={lightTheme.btnColor}>
               Next
             </RouteBtn>
           </BtnWrapper>

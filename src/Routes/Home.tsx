@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currRouteState,
-  Quiz,
-  quizDataState,
-  routesState,
-  Score,
-  scoreState,
-} from "../atom";
-import HomeIcons from "../Components/HomeIcons";
-import { lightTheme } from "../theme";
+import React from "react";
+import styled from "styled-components";
+
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currRouteState, routesState } from "../atom";
+import HomeIcons from "../components/homeScreen/HomeIcons";
+import HomeButtons from "../components/homeScreen/HomeButtons";
 
 // Style Component
 const Wrapper = styled.div`
@@ -30,40 +23,12 @@ const Title = styled.h1`
   }
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-const StartBtn = styled.button<ButtonProps>`
-  background-color: ${(props) => props.bgColor};
-  border: none;
-  padding: 15px;
-  font-size: 24px;
-  padding-left: 80px;
-  padding-right: 80px;
-  border-radius: 20px;
-  cursor: pointer;
-`;
-interface ButtonProps {
-  bgColor: string;
-}
-
-function Home() {
-  const navigate = useNavigate();
+const Home: React.FC = () => {
   const routes = useRecoilValue<string[]>(routesState);
-  const [currRoute, setCurrRoute] = useRecoilState<number>(currRouteState);
+  const setCurrRoute = useSetRecoilState<number>(currRouteState);
 
-  // Navigation logic
-  useEffect(() => {
-    setCurrRoute(0);
-  });
-  const startClicked = () => {
-    navigate(`${routes[currRoute]}`);
-  };
-  const resultClicked = () => {
-    navigate(`/result`, { state: { isFromHome: true } });
-  };
+  // Initialize global route
+  setCurrRoute(0);
 
   return (
     <Wrapper>
@@ -73,22 +38,10 @@ function Home() {
       </span>
       <HomeIcons />
       <div style={{ height: "15px" }}>
-        {/* Load start button after route state loaded*/}
-        {routes.length === 0 ? (
-          <span>Loading</span>
-        ) : (
-          <ButtonWrapper>
-            <StartBtn bgColor={lightTheme.btnColor} onClick={startClicked}>
-              Start
-            </StartBtn>
-            <StartBtn bgColor={lightTheme.grey} onClick={resultClicked}>
-              점수 확인
-            </StartBtn>
-          </ButtonWrapper>
-        )}
+        {routes.length === 0 ? <span>Loading</span> : <HomeButtons />}
       </div>
     </Wrapper>
   );
-}
+};
 
 export default Home;

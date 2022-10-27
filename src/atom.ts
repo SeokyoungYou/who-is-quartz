@@ -8,9 +8,10 @@ export const scoreState = atom<Score[]>({
   default: [],
 });
 
+export type Answer = "left" | "right" | boolean;
 interface QuizImg {
   url: string;
-  answer: string | boolean;
+  answer: Answer;
 }
 export interface Quiz {
   quizId: string;

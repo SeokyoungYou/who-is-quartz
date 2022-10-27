@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { Quiz, quizDataState, routesState } from "./atom";
-import Home from "./Routes/Home";
-import QuizScreen from "./Routes/QuizScreen";
-import ResultScreen from "./Routes/ResultScreen";
+import Home from "./routes/Home";
+import QuizScreen from "./routes/QuizScreen";
+import ResultScreen from "./routes/ResultScreen";
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.bgColor};
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 // Qiuz JSON data in public folder
 const url = `${process.env.PUBLIC_URL}/data.json`;
 
-function App() {
+const App: React.FC = () => {
   const [quiz, setQuiz] = useRecoilState<Quiz[]>(quizDataState);
   const [routes, setRoutes] = useRecoilState<string[]>(routesState);
   useEffect(() => {
@@ -55,6 +55,6 @@ function App() {
       </BrowserRouter>
     </Wrapper>
   );
-}
+};
 
 export default App;

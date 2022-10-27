@@ -37,6 +37,7 @@ function HomeIcons() {
     color: "black",
     iconName: BLANK_FACE_ICON,
   };
+
   // Toggle icons by clicking event
   if (firstIconState) {
     firstIcon.color = "#6BCB77";

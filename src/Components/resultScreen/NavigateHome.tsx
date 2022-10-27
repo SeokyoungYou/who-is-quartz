@@ -19,9 +19,8 @@ const NavigateHome: React.FC<NavigateHomeProps> = ({ setIsSubmit }) => {
   const navigate = useNavigate();
   const resetScores = useResetRecoilState(scoreState);
 
-  // Navigate to home and reset scoreState
+  // Navigate to home
   const homeClicked = () => {
-    resetScores();
     navigate(`/`);
     setIsSubmit(false);
   };

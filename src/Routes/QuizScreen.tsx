@@ -6,7 +6,7 @@ import {
   currRouteState,
   Quiz,
   quizDataState,
-  routesState,
+  routesSelctor,
   Score,
   scoreState,
 } from "../atom";
@@ -44,7 +44,7 @@ export interface PointerEvent {
 const QuizScreen: React.FC = () => {
   // routes info
   const navigate = useNavigate();
-  const routes = useRecoilValue<string[]>(routesState); // global routes array
+  const routes = useRecoilValue(routesSelctor);
   const currRoute = useRecoilValue<number>(currRouteState);
   // quiz info
   const quiz = useRecoilValue<Quiz[]>(quizDataState);

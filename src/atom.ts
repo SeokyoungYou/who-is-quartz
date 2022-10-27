@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 export interface Score {
   [key: string]: boolean;
 }
@@ -24,9 +24,17 @@ export const quizDataState = atom<Quiz[]>({
   default: [],
 });
 
-export const routesState = atom<string[]>({
-  key: "routesState", //Route array refer JSON data
-  default: [],
+export const routesSelctor = selector<string[]>({
+  key: "quizRoutes", //Route array refer JSON data: depends on quizDataState
+  get: ({ get }) => {
+    const quiz = get(quizDataState);
+    let quizRoutes: string[] = [];
+    quiz.forEach((quiz) => {
+      quizRoutes.push(`/quiz/${quiz.quizId}`);
+    });
+    quizRoutes.push("/result");
+    return quizRoutes;
+  },
 });
 
 export const currRouteState = atom<number>({

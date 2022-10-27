@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
-import { currRouteState, routesState, scoreState } from "../atom";
+import { currRouteState, routesSelctor, scoreState } from "../atom";
 import HomeIcons from "../components/homeScreen/HomeIcons";
 import HomeButtons from "../components/homeScreen/HomeButtons";
 
@@ -24,12 +24,11 @@ const Title = styled.h1`
 `;
 
 const Home: React.FC = () => {
-  const routes = useRecoilValue<string[]>(routesState);
+  const routes = useRecoilValue(routesSelctor);
   const resetScores = useResetRecoilState(scoreState);
   const resetCurrRoute = useResetRecoilState(currRouteState);
 
   // Initialize global route and scores
-  // setCurrRoute(0);
   resetScores();
   resetCurrRoute();
 

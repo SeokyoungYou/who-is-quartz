@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { Quiz, quizDataState, routesState } from "./atom";
+import { Quiz, quizDataState } from "./atom";
 import Home from "./routes/Home";
 import QuizScreen from "./routes/QuizScreen";
 import ResultScreen from "./routes/ResultScreen";
@@ -21,8 +21,7 @@ const Wrapper = styled.div`
 const url = `${process.env.PUBLIC_URL}/data.json`;
 
 const App: React.FC = () => {
-  const [quiz, setQuiz] = useRecoilState<Quiz[]>(quizDataState);
-  const [routes, setRoutes] = useRecoilState<string[]>(routesState);
+  const setQuiz = useSetRecoilState<Quiz[]>(quizDataState);
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
@@ -31,17 +30,6 @@ const App: React.FC = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-  useEffect(() => {
-    // ["/","quiz/"]  array 만들기
-    if (quiz.length !== 0) {
-      let quizRoutes: string[] = [];
-      quiz.forEach((quiz) => {
-        quizRoutes.push(`/quiz/${quiz.quizId}`);
-      });
-      quizRoutes.push("/result");
-      setRoutes(quizRoutes);
-    }
-  }, [quiz]);
 
   return (
     <Wrapper>

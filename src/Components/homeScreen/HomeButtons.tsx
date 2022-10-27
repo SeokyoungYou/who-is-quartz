@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { currRouteState, routesState } from "../../atom";
+import { currRouteState, routesSelctor } from "../../atom";
 import { lightTheme } from "../../theme";
 
 const ButtonWrapper = styled.div`
@@ -25,7 +25,7 @@ interface ButtonProps {
 
 const HomeButtons: React.FC = () => {
   const navigate = useNavigate();
-  const routes = useRecoilValue<string[]>(routesState);
+  const routes = useRecoilValue(routesSelctor);
   const currRoute = useRecoilValue<number>(currRouteState);
 
   const startClicked = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -45,6 +45,9 @@ const QuizScreen: React.FC = () => {
   // routes info
   const navigate = useNavigate();
   const routes = useRecoilValue(routesSelctor);
+
+  const { pathname } = useLocation();
+  const quizId = pathname.split("/")[2];
   const currRoute = useRecoilValue<number>(currRouteState);
   // quiz info
   const quiz = useRecoilValue<Quiz[]>(quizDataState);
@@ -55,7 +58,7 @@ const QuizScreen: React.FC = () => {
   const [localScore, setLocalScore] = useState<Score>({});
   // Handle Img Background: color and pointer-event
   const [pointerEvent, setPointerEvent] = useState<PointerEvent>({});
-
+  console.log(quizId, currRoute);
   // After Submit Btn Clicked: Notice answer and fetch scores
   useEffect(() => {
     if (Object.keys(localScore).length !== 0) {

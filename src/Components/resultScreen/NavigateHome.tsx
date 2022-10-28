@@ -1,9 +1,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { useResetRecoilState } from "recoil";
 import styled from "styled-components";
-import { scoreState } from "../../atom";
 
 const ToHome = styled.div`
   display: flex;
@@ -17,7 +15,6 @@ interface NavigateHomeProps {
 }
 const NavigateHome: React.FC<NavigateHomeProps> = ({ setIsSubmit }) => {
   const navigate = useNavigate();
-  const resetScores = useResetRecoilState(scoreState);
 
   // Navigate to home
   const homeClicked = () => {

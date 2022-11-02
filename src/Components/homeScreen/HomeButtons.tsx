@@ -3,25 +3,13 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { currRouteState, routesSelctor } from "../../atom";
 import { lightTheme } from "../../theme";
+import Button from "../UI/Button";
 
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
-const StartBtn = styled.button<ButtonProps>`
-  background-color: ${(props) => props.bgColor};
-  border: none;
-  padding: 15px;
-  font-size: 24px;
-  padding-left: 80px;
-  padding-right: 80px;
-  border-radius: 20px;
-  cursor: pointer;
-`;
-interface ButtonProps {
-  bgColor: string;
-}
 
 const HomeButtons: React.FC = () => {
   const navigate = useNavigate();
@@ -36,12 +24,15 @@ const HomeButtons: React.FC = () => {
   };
   return (
     <ButtonWrapper>
-      <StartBtn bgColor={lightTheme.btnColor} onClick={startClicked}>
-        Start
-      </StartBtn>
-      <StartBtn bgColor={lightTheme.grey} onClick={resultClicked}>
+      <Button bgColor={lightTheme.btnColor} onClickHandler={startClicked}>
+        Quiz 1
+      </Button>
+      <Button bgColor={lightTheme.btnColor} onClickHandler={startClicked}>
+        Quiz 2
+      </Button>
+      <Button bgColor={lightTheme.grey} onClickHandler={resultClicked}>
         점수 확인
-      </StartBtn>
+      </Button>
     </ButtonWrapper>
   );
 };

@@ -1,17 +1,17 @@
 # Who is Quartz?
-주소: https://seokyoungyou.github.io/who-is-quartz
-개발기(블로그): https://velog.io/@skyu_dev/WIQ1-코로나-격리-기간에-쌍둥이-퀴즈-토이-프로젝트-만들기-TS-Recoil-연습하기
-
+>주소: https://seokyoungyou.github.io/who-is-quartz
 
 쌍둥이의 어렸을 때 사진으로 재미있는 퀴즈를 제공하는 웹사이트입니다. TypeScript & Recoil 사용 토이프로젝트 목적으로 제작하였습니다.
 
 ![개요](https://user-images.githubusercontent.com/79842380/198297380-91163fe0-496e-499b-af6b-2e8a8058a37f.gif)
 
+개발기(블로그): https://velog.io/@skyu_dev/WIQ1-코로나-격리-기간에-쌍둥이-퀴즈-토이-프로젝트-만들기-TS-Recoil-연습하기
+
 
 
 ## 프로젝트 소개
 + 무료한 명절 및 공휴일에 지인들에게 즐거움을 선사하기 위해 제작되었으며, quiz set을 업데이트 할 예정입니다.
-+ 두 명의 사람 중 저(Quartz)를 선택하여 정압을 확인합니다.
++ 두 명의 사람 중 저(Quartz)를 선택하여 정답을 확인합니다.
 + 퀴즈 결과를 닉네임과 함께 등록할 수 있으며, 다른 사람들의 결과를 확인이 가능합니다.
 
 ## Library & Framework

@@ -1,0 +1,50 @@
+[
+  {
+    "quizId": "1",
+    "quizName": "생일 잔치",
+    "images": [
+      {
+        "url": "pics/birth_2k.jpeg",
+        "answer": false
+      },
+      {
+        "url": "pics/birth_quartz.jpeg",
+        "answer": true
+      }
+    ]
+  },
+  {
+    "quizId": "2",
+    "quizName": "뿌까 머리",
+    "images": [
+      {
+        "url": "pics/puka_left.jpeg",
+        "answer": "left"
+      }
+    ]
+  },
+  {
+    "quizId": "3",
+    "quizName": "클라이밍",
+    "images": [
+      {
+        "url": "pics/climbing_2k.jpeg",
+        "answer": false
+      },
+      {
+        "url": "pics/climbing_quartz.jpeg",
+        "answer": true
+      }
+    ]
+  },
+  {
+    "quizId": "4",
+    "quizName": "붉은 악마",
+    "images": [
+      {
+        "url": "pics/reds_left.jpeg",
+        "answer": "left"
+      }
+    ]
+  }
+]

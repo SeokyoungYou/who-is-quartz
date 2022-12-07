@@ -25,10 +25,10 @@ const HomeButtons: React.FC = () => {
   return (
     <ButtonWrapper>
       <Button bgColor={lightTheme.btnColor} onClickHandler={startClicked}>
-        Quiz 1
+        연습 문제
       </Button>
       <Button bgColor={lightTheme.btnColor} onClickHandler={startClicked}>
-        Quiz 2
+        실전 문제
       </Button>
       <Button bgColor={lightTheme.grey} onClickHandler={resultClicked}>
         점수 확인

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PointerEvent } from "../../routes/QuizScreen";
-import { Answer, Quiz } from "../../atom";
+import { Answer, QuizI } from "../../atom";
 import QuizTouchableWrapper from "./QuizTouchableWrapper";
 
 const QuizWrapper = styled.div`
@@ -46,7 +46,7 @@ const SingleImg = styled.img`
 
 interface QuizCompProps {
   pointerEvent: PointerEvent;
-  currQiuz: Quiz;
+  currQiuz: QuizI;
   setCorrect: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 const QuizComp: React.FC<QuizCompProps> = ({

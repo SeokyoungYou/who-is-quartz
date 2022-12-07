@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { Quiz, quizDataState } from "./atom";
+import { QuizI, quizDataState } from "./atom";
 import Home from "./routes/Home";
 import QuizScreen from "./routes/QuizScreen";
 import ResultScreen from "./routes/ResultScreen";
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 const url = `${process.env.PUBLIC_URL}/data.json`;
 
 const App: React.FC = () => {
-  const setQuiz = useSetRecoilState<Quiz[]>(quizDataState);
+  const setQuiz = useSetRecoilState<QuizI[]>(quizDataState);
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())

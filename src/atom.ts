@@ -13,13 +13,13 @@ interface QuizImg {
   url: string;
   answer: Answer;
 }
-export interface Quiz {
+export interface QuizI {
   quizId: string;
   quizName: string;
   images: QuizImg[];
 }
 
-export const quizDataState = atom<Quiz[]>({
+export const quizDataState = atom<QuizI[]>({
   key: "quizDataState", //JSON data from fakeDB
   default: [],
 });

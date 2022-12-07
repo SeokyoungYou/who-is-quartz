@@ -9,20 +9,11 @@ import {
   routesSelctor,
   Score,
   scoreState,
-} from "../atom";
-import QuizBtns from "../components/quizScreen/QuizBtns";
-import QuizComp from "../components/quizScreen/QuizComp";
+} from "../../atom";
+import QuizBtns from "../../components/quizScreen/QuizBtns";
+import QuizComp from "../../components/quizScreen/QuizComp";
+import { useQuiz } from "../../hooks/use-quiz";
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,7 +32,23 @@ export interface PointerEvent {
   "pointer-events"?: string;
 }
 
-const QuizScreen: React.FC = () => {
+interface QuizContextI {
+  localQuiz: QuizI | null;
+}
+export const QuizContext = React.createContext({
+  localQuiz: null,
+}) as React.Context<QuizContextI>;
+QuizContext.displayName = "QuizContext";
+
+interface QuizProps {
+  children: React.ReactNode;
+}
+
+interface ChildProps {
+  children: React.ReactNode;
+}
+
+export const Quiz: React.FC<QuizProps> = ({ children }) => {
   // routes info
   const navigate = useNavigate();
   const routes = useRecoilValue(routesSelctor);
@@ -58,8 +65,8 @@ const QuizScreen: React.FC = () => {
   const [localScore, setLocalScore] = useState<Score>({});
   // Handle Img Background: color and pointer-event
   const [pointerEvent, setPointerEvent] = useState<PointerEvent>({});
-  console.log(quizId, currRoute);
-  // After Submit Btn Clicked: Notice answer and fetch scores
+
+  // After Submit Btn Clicked: Unable touch and fetch scores
   useEffect(() => {
     if (Object.keys(localScore).length !== 0) {
       setPointerEvent({ "pointer-events": "none" });
@@ -79,13 +86,9 @@ const QuizScreen: React.FC = () => {
     setLocalScore({});
     setPointerEvent({});
   }, [currRoute]);
-
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <Title>{currQiuz.quizName}</Title>
-        <span>답을 선택한 후 제출 버튼을 눌러주세요!</span>
-      </TitleWrapper>
+    <QuizContext.Provider value={{ localQuiz: currQiuz }}>
+      {children}
       <QuizComp
         pointerEvent={pointerEvent}
         currQiuz={currQiuz}
@@ -96,8 +99,20 @@ const QuizScreen: React.FC = () => {
         correct={correct}
         setLocalScore={setLocalScore}
       />
-    </Wrapper>
+    </QuizContext.Provider>
   );
 };
 
-export default QuizScreen;
+export const QuizTitle: React.FC<ChildProps> = ({ children }) => {
+  const { localQuiz } = useQuiz();
+  return (
+    <TitleWrapper>
+      <Title>{localQuiz?.quizName}</Title>
+      <span>{children}</span>
+    </TitleWrapper>
+  );
+};
+export const QuizNextBtn: React.FC<ChildProps> = ({ children }) => {
+  const { localQuiz } = useQuiz();
+  return null;
+};
